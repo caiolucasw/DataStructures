@@ -4,7 +4,7 @@ public class Lista <T>{
 	private int tamanho = 0;
 	
 	
-	class Node <T>{
+	class Node{
 		private Node proximo;
 		private T data;
 		
@@ -13,6 +13,7 @@ public class Lista <T>{
 			this.data = data;
 			
 		}
+		
 	}
 	
 	public boolean estaVazia() {
@@ -121,15 +122,22 @@ public class Lista <T>{
 			return null;
 		}else {
 			aux = this.no_inicio;
-			while(aux.proximo != this.no_final) {
-				aux = aux.proximo;
+			if(this.no_inicio != this.no_final) {
+			
+				while(aux.proximo != this.no_final) {
+					aux = aux.proximo;
+				}
+				
+				if(aux.proximo == this.no_final) {
+					aux.proximo = null;
+					this.no_final = aux;
+				}
+			
+			}else {
+				this.no_final = null;
+				this.no_inicio = null;
 			}
 			
-			if(aux.proximo == this.no_final) {
-				aux.proximo = null;
-				this.no_final = aux;
-			}
-		
 			this.tamanho--;
 		}
 		
@@ -183,9 +191,7 @@ public class Lista <T>{
 	public void imprime() {
 		Node aux = this.no_inicio;
 		
-		if(estaVazia()) {
-			System.out.println("Lista vazia!");
-		}else {
+		 if(!(this.estaVazia())){
 			while(aux != null) {
 				System.out.print(aux.data + " ");
 				aux = aux.proximo;
@@ -196,6 +202,11 @@ public class Lista <T>{
 
 	public int getTamanho() {
 		return this.tamanho;
+	}
+	
+	public T getDataFinal() {
+		return this.no_final.data;
+		
 	}
 
 }
